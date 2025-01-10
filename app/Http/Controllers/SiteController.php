@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\site\Page;
+use App\Models\Language;
+use App\Models\Service;
+use App\Models\Setting;
+use App\Models\site\Faq;
+use App\Models\site\Slider;
+use App\Models\site\SuccessPartner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class SiteController extends Controller
+{
+
+
+    public function indexService()
+    {
+        $services = Service::all();
+        return view('site.pages.service', compact('services'));
+    }
+
+
+    public function setLocale($locale)
+    {
+        $availableLocales = Language::where('is_active', 1)->pluck('code')->toArray();
+
+        if (in_array($locale, $availableLocales)) {
+            session(['locale' => $locale]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function home()
+    {
+        $locale = session('locale', 'ar');
+        $settings = Setting::where('type', $locale)->pluck('value', 'slug')->toArray();
+        $sliders = Slider::where('status', 1)->get();
+
+        $faqs = Faq::all();
+        $partners = SuccessPartner::get();
+        $pages = Page::where('status', 'site')->get();
+        return view('site.home', compact('settings', 'sliders', 'faqs', 'partners', 'pages'));
+    }
+
+    public function viewImage(Request $request, $modelName)
+    {
+        try {
+            if (empty($request->nameVar)) {
+                throw new \Exception('Image variable not specified');
+            } else {
+                $nameVar = $request->nameVar;
+            }
+
+
+            if ($modelName == 'Setting') {
+                $model = Setting::where('slug', $nameVar)->first();
+
+                $imagePath = $model->value;
+            } else {
+                if (!class_exists($modelName)) {
+                    throw new \Exception('Model not found');
+                }
+                $model = resolve($modelName);
+
+                // تحميل النموذج ديناميكيًا
+
+                // البحث عن السجل باستخدام المعرف
+                $record = $model::find($request->id);
+                if (!$record) {
+                    throw new \Exception('Record not found');
+                }
+
+                $imagePath = $record->$nameVar;
+                if (!Storage::exists($imagePath)) {
+                    throw new \Exception('Image not found');
+                }
+            }
+
+
+
+            // عرض الصورة
+            return response()->file(storage_path('app/' . $imagePath), [
+                'Content-Type' => Storage::mimeType($imagePath),
+                'Content-Disposition' => 'inline',
+            ]);
+        } catch (\Exception $e) {
+            // عرض الصورة الافتراضية في حالة حدوث خطأ
+            return response()->file(storage_path('app/default_large.png'), [
+                'Content-Type' => 'image/png',
+                'Content-Disposition' => 'inline',
+            ]);
+        }
+    }
+}

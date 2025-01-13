@@ -8,7 +8,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SubscriberController;
-
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +56,7 @@ Route::get('/view-image/{m}', [SiteController::class, 'viewImage'])->name('view-
 Route::get('service', [ServiceController::class, 'index'])->name('service.home');
 Route::get('/service/{id}', [ServiceController::class, 'showServiceDetails'])->name('service.details');
 Route::post('/service/subscribe', [ServiceController::class, 'subscribe'])->name('form.submit');
+
+
+Route::get('/blogs', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blog.show');

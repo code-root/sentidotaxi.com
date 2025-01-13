@@ -80,7 +80,7 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     var editUrl = `{{ route("category.edit", ":id") }}`.replace(':id', data);
                     return `
-                        <a href="${editUrl}" class="dropdown-item edit-category" data-id="${data}" data-url="${editUrl}"  data-bs-toggle="offcanvas" data-bs-target="#edit-record">
+                        <a href="${editUrl}" class="dropdown-item edit-category" data-id="${data}" data-url="${editUrl}">
                             <i class="fa fa-pencil"></i> edit
                         </a>
                         <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-Update="${row.status}">

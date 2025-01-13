@@ -87,30 +87,44 @@
                 </table>
 
                 <h2 class="mt-5">Orders</h2>
-                <table id="ordersTable" class="table">
+                <table id="formSubmissionsTable" class="table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Service Name</th>
-                            <th>Duration</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Phone</th>
+                            <th>Mobile</th>
+                            <th>Arrival Date</th>
+                            <th>Landing Time</th>
+                            <th>Flight Number</th>
+                            <th>Number of People</th>
+                            <th>Vehicle</th>
+                            <th>Destination Hotel</th>
+                            <th>Return Transfer</th>
+                            <th>SIM Card</th>
+                            <th>SIM Card Option</th>
+                            <th>SIM Card G</th>
                             <th>Message</th>
-                            <th>Order Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($orders as $index => $order)
+                        @foreach($formSubmissions as $index => $submission)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $order->service->name }}</td>
-                                <td>{{ $order->subscription_duration }}</td>
-                                <td>{{ $order->name }}</td>
-                                <td>{{ $order->email }}</td>
-                                <td>{{ $order->phone }}</td>
-                                <td>{{ $order->message }}</td>
-                                <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
+                                <td>{{ $submission->name }}</td>
+                                <td>{{ $submission->email }}</td>
+                                <td>{{ $submission->mobile_number }}</td>
+                                <td>{{ $submission->arrival_date->format('Y-m-d') }}</td>
+                                <td>{{ $submission->landing_time }}</td>
+                                <td>{{ $submission->flight_number }}</td>
+                                <td>{{ $submission->number_of_people }}</td>
+                                <td>{{ $submission->vehicle }}</td>
+                                <td>{{ $submission->destination_hotel }}</td>
+                                <td>{{ $submission->return_transfer }}</td>
+                                <td>{{ $submission->sim_card }}</td>
+                                <td>{{ $submission->sim_card_option }}</td>
+                                <td>{{ $submission->sim_card_g }}</td>
+                                <td>{{ $submission->message }}</td>
                             </tr>
                         @endforeach
                     </tbody>

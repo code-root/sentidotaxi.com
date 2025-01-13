@@ -13,7 +13,7 @@
                         <div class="inner">
                             <div class="thumbnail">
                                 <a href="{{ route('service.details', $service->id) }}">
-                                    <img src="{{ asset('assets/images/service/' . $service->image) }}" alt="{{ $service->name }}">
+                                    <img src="/storage/app/public/{{ $service->image) }}" alt="{{ $service->name }}">
                                 </a>
                             </div>
                             <div class="content">

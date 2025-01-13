@@ -18,7 +18,7 @@ class ServiceController extends Controller
 
     public function showServiceDetails($id) {
         $service = Service::with('orders', 'views')->findOrFail($id);
-        // تسجيل المشاهدة
+
         $ipAddress = request()->ip();
         $service->views()->create(['ip_address' => $ipAddress]);
         return view('site.pages.service-details', compact('service'));
@@ -34,18 +34,19 @@ class ServiceController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'anreise_datum' => 'required|date',
-            'landezeit' => 'required|date_format:H:i',
-            'flugnr' => 'required|string|max:255',
-            'anzahl_personen' => 'required|integer',
-            'fahrzeug' => 'required|string|max:255',
-            'zielort_hotel' => 'required|string|max:255',
+            'service_id' => 'required|date_format:H:i',
+            'arrival_date' => 'required|date',
+            'landing_time' => 'required|date_format:H:i',
+            'flight_number' => 'required|string|max:255',
+            'number_of_people' => 'required|integer',
+            'vehicle' => 'required|string|max:255',
+            'destination_hotel' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'mobil_nr' => 'required|string|max:255',
-            'rucktransfer' => 'required|string|max:255',
-            'sim_karte' => 'required|string|max:255',
-            'sim_karte_option' => 'required|string|max:255',
-            'sim_karte_g' => 'required|string|max:255',
+            'mobile_number' => 'required|string|max:255',
+            'return_transfer' => 'required|string|max:255',
+            'sim_card' => 'required|string|max:255',
+            'sim_card_option' => 'required|string|max:255',
+            'sim_card_g' => 'required|string|max:255',
             'message' => 'nullable|string',
         ]);
 
@@ -53,5 +54,6 @@ class ServiceController extends Controller
 
         return response()->json(['message' => 'Form submitted successfully!']);
     }
+
 
 }

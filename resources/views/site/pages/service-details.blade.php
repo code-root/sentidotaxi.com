@@ -105,65 +105,69 @@
                             <input type="hidden" name="service_id" value="{{ $service->id }}">
                             <div class="row row--10">
                                 <div class="form-group col-12">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" name="name" id="name" placeholder="Your name" required>
+                                    <label for="name">{{ __('form.your_name') }}</label>
+                                    <input type="text" name="name" id="name" placeholder="{{ __('form.your_name') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="anreise_datum">Anreise Datum</label>
-                                    <input type="date" name="anreise_datum" id="anreise_datum" placeholder="Anreise Datum" required>
+                                    <label for="arrival_date">{{ __('form.arrival_date') }}</label>
+                                    <input type="date" name="arrival_date" id="arrival_date" placeholder="{{ __('form.arrival_date') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="landezeit">Landezeit</label>
-                                    <input type="time" name="landezeit" id="landezeit" placeholder="Landezeit" required>
+                                    <label for="landing_time">{{ __('form.landing_time') }}</label>
+                                    <input type="time" name="landing_time" id="landing_time" placeholder="{{ __('form.landing_time') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="flugnr">Flugnr</label>
-                                    <input type="text" name="flugnr" id="flugnr" placeholder="Flugnr" required>
+                                    <label for="flight_number">{{ __('form.flight_number') }}</label>
+                                    <input type="text" name="flight_number" id="flight_number" placeholder="{{ __('form.flight_number') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="anzahl_personen">Anzahl Personen</label>
-                                    <input type="number" name="anzahl_personen" id="anzahl_personen" placeholder="Anzahl Personen" required>
+                                    <label for="number_of_people">{{ __('form.number_of_people') }}</label>
+                                    <input type="number" name="number_of_people" id="number_of_people" placeholder="{{ __('form.number_of_people') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="fahrzeug">Fahrzeug</label>
-                                    <input type="text" name="fahrzeug" id="fahrzeug" placeholder="Fahrzeug" required>
+                                    <label for="vehicle">{{ __('form.vehicle') }}</label>
+                                    <input type="text" name="vehicle" id="vehicle" placeholder="{{ __('form.vehicle') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="zielort_hotel">Zielort Hotel</label>
-                                    <input type="text" name="zielort_hotel" id="zielort_hotel" placeholder="Zielort Hotel" required>
+                                    <label for="destination_hotel">{{ __('form.destination_hotel') }}</label>
+                                    <input type="text" name="destination_hotel" id="destination_hotel" placeholder="{{ __('form.destination_hotel') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                                    <label for="email">{{ __('form.email') }}</label>
+                                    <input type="email" name="email" id="email" placeholder="{{ __('form.email') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="mobil_nr">Mobil Nr</label>
-                                    <input type="tel" name="mobil_nr" id="mobil_nr" placeholder="Mobil Nr" required>
+                                    <label for="mobile_number">{{ __('form.mobile_number') }}</label>
+                                    <input type="tel" name="mobile_number" id="mobile_number" placeholder="{{ __('form.mobile_number') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="rucktransfer">Rucktransfer</label>
-                                    <input type="text" name="rucktransfer" id="rucktransfer" placeholder="Rucktransfer" required>
+                                    <label for="return_transfer">{{ __('form.return_transfer') }}</label>
+                                    <input type="text" name="return_transfer" id="return_transfer" placeholder="{{ __('form.return_transfer') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="sim_karte">Sim Karte</label>
-                                    <input type="text" name="sim_karte" id="sim_karte" placeholder="Sim Karte" required>
+                                    <label for="sim_card">{{ __('form.sim_card') }}</label>
+                                    <input type="text" name="sim_card" id="sim_card" placeholder="{{ __('form.sim_card') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="sim_karte_option">Sim Karte Option</label>
-                                    <input type="text" name="sim_karte_option" id="sim_karte_option" placeholder="Sim Karte Option" required>
+                                    <label for="sim_card_option">{{ __('form.sim_card_option') }}</label>
+                                    <input type="text" name="sim_card_option" id="sim_card_option" placeholder="{{ __('form.sim_card_option') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="sim_karte_g">Sim Karte G</label>
-                                    <input type="text" name="sim_karte_g" id="sim_karte_g" placeholder="Sim Karte G" required>
+                                    <label for="sim_card_g">{{ __('form.sim_card_g') }}</label>
+                                    <input type="text" name="sim_card_g" id="sim_card_g" placeholder="{{ __('form.sim_card_g') }}" required>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="message">Your Message</label>
-                                    <textarea name="message" id="message" cols="30" rows="4" placeholder="Your message"></textarea>
+                                    <label for="message">{{ __('form.your_message') }}</label>
+                                    <textarea name="message" id="message" cols="30" rows="4" placeholder="{{ __('form.your_message') }}"></textarea>
                                 </div>
                                 <div class="form-group col-12">
-                                    <button class="rn-btn amazing-btn btn-medium submit-btn" type="submit">Submit <i class="icon-4"></i></button>
+                                    <button class="rn-btn amazing-btn btn-medium submit-btn" type="submit">
+                                        {{ __('form.submit') }} <i class="icon-4"></i>
+                                    </button>
                                 </div>
                             </div>
+
+
                         </form>
                         <div id="form-messages" class="mt-3"></div>
                     </div>

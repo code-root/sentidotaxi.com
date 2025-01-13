@@ -39,6 +39,15 @@
                         </a>
                     </li>
 
+
+                    <!-- Gallery -->
+                    <li class="menu-item">
+                        <a href="{{ route('blog.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-image"></i>
+                            <div class="text-truncate" data-i18n="Blogs ">Blogs </div>
+                        </a>
+                    </li>
+
                     <!-- Category -->
                     <li class="menu-item">
                         <a href="{{ route('category.index') }}" class="menu-link">

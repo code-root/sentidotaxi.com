@@ -7,6 +7,7 @@ use App\Models\ServiceOrder;
 use App\Models\ServiceView;
 use App\Models\Service;
 use App\Models\App\DeviceUser;
+use App\Models\FormSubmission;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -50,7 +51,7 @@ class HomeController extends Controller
 
         $endDate = Carbon::now();
 
-        $topServices = ServiceOrder::select('service_id', \DB::raw('count(*) as total'))
+        $topServices = FormSubmission::select('service_id', \DB::raw('count(*) as total'))
             ->whereBetween('created_at', [$startDate, $endDate])
             ->groupBy('service_id')
             ->orderBy('total', 'desc')
@@ -64,8 +65,8 @@ class HomeController extends Controller
         // Calculate previous month's sales percentage
         $previousMonthStart = Carbon::now()->subMonth()->startOfMonth();
         $previousMonthEnd = Carbon::now()->subMonth()->endOfMonth();
-        $previousMonthSales = ServiceOrder::whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
-        $currentMonthSales = ServiceOrder::whereBetween('created_at', [$startDate, $endDate])->count();
+        $previousMonthSales = FormSubmission::whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
+        $currentMonthSales = FormSubmission::whereBetween('created_at', [$startDate, $endDate])->count();
         $salesPercentage = $previousMonthSales > 0 ? ($currentMonthSales - $previousMonthSales) / $previousMonthSales * 100 : 0;
 
         return view('dashboard.home', compact('subscribers', 'totalOrders', 'totalViews', 'services', 'deviceOrders', 'orders', 'topServices', 'serviceNames', 'filter', 'salesPercentage'));

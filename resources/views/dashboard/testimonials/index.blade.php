@@ -115,7 +115,7 @@ $(document).ready(function() {
                 data: 'id',
                 render: function(data, type, row) {
                     return `
-                        <a href="#" class="dropdown-item edit-testimonial" data-id="${data}" data-bs-toggle="offcanvas" data-bs-target="#edit-record">
+                        <a href="#" class="dropdown-item edit-testimonial" data-id="${data}" >
                             <i class="fa fa-pencil"></i> Edit
                         </a>
                         <a href="#" class="dropdown-item delete-testimonial" data-id="${data}">

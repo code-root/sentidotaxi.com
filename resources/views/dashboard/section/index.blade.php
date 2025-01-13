@@ -214,7 +214,7 @@ $(document).ready(function() {
                     var editUrl = `{{ route("section.edit", ":id") }}`.replace(':id', data);
                     var addPageUrl = `{{ route("page.create", ":section_id") }}`.replace(':section_id', data);
                     return `
-                        <a href="#" class="dropdown-item edit-section" data-id="${data}" data-url="${editUrl}"  data-bs-toggle="offcanvas" data-bs-target="#edit-record">
+                        <a href="#" class="dropdown-item edit-section" data-id="${data}" data-url="${editUrl}" >
                             <i class="fa fa-pencil"></i> تعديل
                         </a>
                         <a href="#" class="dropdown-item add-page" data-id="${data}" data-bs-toggle="offcanvas" data-bs-target="#add-new-page">

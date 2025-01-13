@@ -20,19 +20,19 @@
         </div>
         @endif
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Services</span>
+            <span class="text-muted fw-light">Blogs</span>
         </h4>
         <div class="card">
             <div class="card-header">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header flex-column flex-md-row">
                         <div class="head-label text-center">
-                            <h5 class="card-title mb-0">Data Table Services</h5>
+                            <h5 class="card-title mb-0">Data Table Blogs</h5>
                         </div>
                         <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <div class="dt-buttons">
-                                <a href="{{ route('service.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light" >
-                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Service</span></span>
+                                <a href="{{ route('blog.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light" >
+                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Blog</span></span>
                                 </a>
                             </div>
                         </div>
@@ -41,10 +41,9 @@
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
-                                <th>Name</th>
                                 <th>Title</th>
-                                <th>Price</th>
-                                <th>Status</th>
+                                <th>Author</th>
+                                <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -69,24 +68,23 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ route('service.data') }}",
+            url: "{{ route('blog.data') }}",
             type: 'GET'
         },
         columns: [
-            { data: 'name' },
             { data: 'title' },
-            { data: 'price' },
-            { data: 'status' },
+            { data: 'author' },
+            { data: 'created_at' },
             {
                 data: 'id',
                 render: function(data, type, row) {
-                    var editUrl = `{{ route("service.edit", ":id") }}`.replace(':id', data);
+                    var editUrl = `{{ route("blog.edit", ":id") }}`.replace(':id', data);
                     return `
-                        <a href="${editUrl}" class="dropdown-item edit-service" data-id="${data}" data-url="${editUrl}"  >
+                        <a href="${editUrl}" class="dropdown-item edit-blog">
                             <i class="fa fa-pencil"></i> Edit
                         </a>
-                        <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-Update="${row.status}">
-                            <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'Disable' : 'Enable'}
+                        <a href="#" class="dropdown-item delete-blog" data-id="${data}">
+                            <i class="fa fa-trash"></i> Delete
                         </a>
                     `;
                 }
@@ -94,18 +92,14 @@ $(document).ready(function() {
         ]
     });
 
-    $('#data-x').on('click', '.toggle-Update', function(e) {
+    $('#data-x').on('click', '.delete-blog', function(e) {
         e.preventDefault();
         var id = $(this).data('id');
-        var status = $(this).data('status');
         $.ajax({
-            url: "{{ route('service.toggleStatus') }}",
-            type: "POST",
+            url: "{{ route('blog.destroy', ':id') }}".replace(':id', id),
+            type: "DELETE",
             data: {
                 "_token": "{{ csrf_token() }}",
-                "id": id,
-                "model": "Service",
-                "status": status
             },
             success: function(response) {
                 table.ajax.reload();
@@ -115,12 +109,12 @@ $(document).ready(function() {
 
     $('#submitForm').click(function(e) {
         e.preventDefault();
-        var descriptionContent = tinymce.get('description').getContent();
+        var content = tinymce.get('content').getContent();
         var formData = new FormData($('#store-form')[0]);
-        formData.append('description', descriptionContent);
+        formData.append('content', content);
 
         $.ajax({
-            url: "{{ route('service.create') }}",
+            url: "{{ route('blog.create') }}",
             type: 'POST',
             data: formData,
             processData: false,
@@ -130,7 +124,7 @@ $(document).ready(function() {
                 $('.form-control').removeClass('is-invalid');
                 Lobibox.notify('success', {
                     title: 'Success',
-                    msg: 'Service added successfully.'
+                    msg: 'Blog added successfully.'
                 });
                 $('#store-form')[0].reset();
                 table.ajax.reload();
@@ -147,17 +141,15 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on("click", ".delete-service", function () {
+    $(document).on("click", ".delete-blog", function () {
         var itemId = $(this).data('id');
         $("#deleteModal").modal('show');
         $("#confirmDelete").on("click", function () {
             $.ajax({
                 type: 'DELETE',
-                url: "{{ route('service.destroy') }}",
+                url: "{{ route('blog.destroy', ':id') }}".replace(':id', itemId),
                 data: {
                     '_token': '{{ csrf_token() }}',
-                    'id': itemId,
-                    'model': "Service"
                 },
                 success: function(data) {
                     $("#deleteModal").modal('hide');

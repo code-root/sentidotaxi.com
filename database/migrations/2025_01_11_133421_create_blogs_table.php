@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('title');
-            $table->string('description');
-            $table->string('content');
+            $table->text('description');
             $table->string('author');
             $table->string('image')->nullable();
-            $table->string('tr_token', 255);
-            $table->foreign('tr_token')->references('token')->on('translations')->onDelete('cascade');
+            $table->string('tr_token', 255)->nullable();
             $table->index(['tr_token']);
             $table->string('status')->default('active');
             $table->timestamps();

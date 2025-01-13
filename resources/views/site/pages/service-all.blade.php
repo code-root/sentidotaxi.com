@@ -20,12 +20,12 @@
         <li class="shape-1">
             <span></span>
         </li>
-        <li class="shape-2 scene"><img data-depth="2" src="assets/images/about/shape-13.png" alt="shape"></li>
-        <li class="shape-3 scene"><img data-depth="-2" src="assets/images/about/shape-15.png" alt="shape"></li>
+        <li class="shape-2 scene"><img data-depth="2" src="/assets/site/images/about/shape-13.png" alt="shape"></li>
+        <li class="shape-3 scene"><img data-depth="-2" src="/assets/site/images/about/shape-15.png" alt="shape"></li>
         <li class="shape-4">
             <span></span>
         </li>
-        <li class="shape-5 scene"><img data-depth="2" src="assets/images/about/shape-07.png" alt="shape"></li>
+        <li class="shape-5 scene"><img data-depth="2" src="/assets/site/images/about/shape-07.png" alt="shape"></li>
     </ul>
 </div>
 

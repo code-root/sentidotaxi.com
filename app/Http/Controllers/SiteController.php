@@ -26,9 +26,9 @@ class SiteController extends Controller
     public function setLocale($locale)
     {
         $availableLocales = Language::where('is_active', 1)->pluck('code')->toArray();
-
         if (in_array($locale, $availableLocales)) {
             session(['locale' => $locale]);
+            App::setLocale($locale);
         }
 
         return redirect()->back();

@@ -11,8 +11,10 @@ use App\Models\Setting;
 use App\Models\Language;
 use App\Models\Section;
 use App\Models\Service;
+use App\Models\Blog;
 use App\Models\site\Category;
 use App\Models\Testimonial;
+use Illuminate\Support\Facades\App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,8 +29,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+
+
+
     public function boot(): void
     {
+        $locale = session('locale', config('app.locale'));
+        App::setLocale($locale);
         Schema::defaultStringLength(191);
 
         // توفير اللغة في جميع الصفحات
@@ -65,7 +72,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('testimonials', Testimonial::all());
         });
 
-
+        view()->composer('site.components.blog', function ($view) {
+            $blogs = Blog::latest()->take(10)->get();
+            $view->with('blogs', $blogs);
+        });
 
         view()->composer('site.components.service', function ($view) {
             $services = Service::with('orders', 'views')->get();

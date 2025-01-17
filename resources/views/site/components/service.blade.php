@@ -12,8 +12,8 @@
                     <div class="amazing-course course-style-4 course-style-20">
                         <div class="inner">
                             <div class="thumbnail">
-                                <a href="{{ route('service.details', $service->id) }}">
-                                    <img src="/storage/app/public/{{ $service->image) }}" alt="{{ $service->name }}">
+                                <a href="{{ route('service.details', $service->id) }}"style="width: 15rem;">
+                                    <img src="/storage/app/public/{{ $service->image }}" alt="{{ $service->name }}">
                                 </a>
                             </div>
                             <div class="content">

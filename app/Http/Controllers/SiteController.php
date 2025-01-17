@@ -11,6 +11,7 @@ use App\Models\site\Slider;
 use App\Models\site\SuccessPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 
 class SiteController extends Controller
 {

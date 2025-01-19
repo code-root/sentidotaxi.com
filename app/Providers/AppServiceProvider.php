@@ -46,8 +46,10 @@ class AppServiceProvider extends ServiceProvider
             $languages = Language::get();
             $pages = Page::get();
             $sections = Section::get();
+
             $categories = Category::with('services')->get();
             $view->with('categories', $categories);
+            $view->with('web_logo', Setting::getLogoSettings());
             $view->with('basicFields', $basicFields);
             $view->with('settings', $settings);
             $view->with('languages', $languages);

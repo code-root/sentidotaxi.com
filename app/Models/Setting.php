@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
@@ -17,4 +18,14 @@ class Setting extends Model
         'slug',
         'title',
     ];
+
+
+    public static function getLogoSettings()
+    {
+        return Cache::remember('basic_settings', 3600, function () {
+            return 'storage/app/public/' . self::where('type', 'basic')
+                ->where('slug', 'logo')
+                ->value('value') ?? 'images/default-logo.png';
+        });
+    }
 }

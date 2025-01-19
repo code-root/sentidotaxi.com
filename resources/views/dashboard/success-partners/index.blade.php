@@ -41,7 +41,7 @@
                                     <tr>
                                         <td>{{ $partner->id }}</td>
                                         <td>{{ $partner->name }}</td>
-                                        <td><img width="180px" src="{{ route('api.image.partners') }}?id={{  $partner->id }}" alt="{{ $partner->name }}" width="100"></td>
+                                        <td><img width="180px" src="/storage/app/public/{{ $partner->logo }}" alt="{{ $partner->name }}" width="100"></td>
                                         <td>
                                             <div class="d-inline-block">
                                                 <a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -107,25 +107,25 @@
 <script>
     $(document).ready(function() {
         let csrfToken = $('meta[name="csrf-token"]').attr('content');
-    
+
         $('#table').DataTable({
             responsive: true,
             columnDefs: [
                 { targets: 'no-sort', orderable: false }
             ]
         });
-    
+
         $('#successPartnerForm').on('submit', function(e) {
             e.preventDefault();
             let formData = new FormData(this);
             let id = $('#successPartnerId').val();
             let url = id ? `{{ route('success_partners.update', '') }}/${id}` : `{{ route('success_partners.store') }}`;
             let method = id ? 'PUT' : 'POST';
-    
+
             // إظهار مؤشر التحميل وتعطيل الزر
             $('#saveChangesButton').prop('disabled', true);
             $('#loading-spinner').removeClass('d-none');
-    
+
             $.ajax({
                 type: method,
                 url: url,
@@ -155,25 +155,25 @@
                 }
             });
         });
-    
+
         // Open modal for editing
         $('.btn-edit').on('click', function() {
             let id = $(this).data('id');
-    
+
             $.ajax({
                 type: 'GET',
                 url: `{{ route('success_partners.edit', '') }}/${id}`,
                 success: function(response) {
                     if (response.success) {
                         let partner = response.data;
-    
+
                         $('#successPartnerId').val(partner.id);
                         $('#name').val(partner.name);
-    
+
                         // Clear previous file selection in the input
                         $('#logo').val('');
                         $('#logo').next('.invalid-feedback').text('');
-    
+
                         $('#successPartnerModal').modal('show');
                     } else {
                         Swal.fire(
@@ -188,13 +188,13 @@
                 }
             });
         });
-    
+
         // Handle delete action
         $('.delete-record').on('click', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
             let row = $(this).closest('tr');
-    
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",

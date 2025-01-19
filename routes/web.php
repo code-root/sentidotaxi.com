@@ -4,11 +4,12 @@ use Illuminate\Http\Request;
 use App\Helpers\TranslationHelper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\SiteController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SubscriberController;
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Site\BlogController;
+use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\ServiceController;
+use App\Http\Controllers\Site\ContactController;
+use App\Http\Controllers\API\SubscriberController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,15 +44,13 @@ Route::post('storeText', function (Request $request) {
     });
 
 
-Route::get('set-locale/{locale}', [SiteController::class, 'setLocale'])->name('set.locale');
-Route::get('/', [SiteController::class, 'home'])->name('home');
+Route::get('set-locale/{locale}', [HomeController::class, 'setLocale'])->name('set.locale');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');
-Route::get('page/{name}', [PageController::class, 'showPage'])->name('page.show');
+Route::get('page/{name}', [HomeController::class, 'showPage'])->name('page.show');
 Route::post('/subscribe', [SubscriberController::class, 'store']);
 
-Route::get('view-image-success-partners/', [SuccessPartnerController::class, 'viewImage'])->name('api.image.partners');
-Route::get('/view-image/{m}', [SiteController::class, 'viewImage'])->name('view-image');
 
 Route::get('service', [ServiceController::class, 'index'])->name('service.home');
 Route::get('/service/{id}', [ServiceController::class, 'showServiceDetails'])->name('service.details');

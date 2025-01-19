@@ -1,6 +1,7 @@
 @extends('site.layouts.app')
 
 @section('title', $service->title)
+
 @section('content')
 <div class="amazing-breadcrumb-area breadcrumb-style-3">
     <div class="container">
@@ -31,6 +32,103 @@
                     <div class="course-overview">
                         <h3 class="heading-title">Service Description</h3>
                         <p>{!! getTranslations($service->tr_token, 'description') !!}</p>
+                    </div>
+                    <div id="subscription-form" class="contact-form form-style-2 mt-5">
+                        <div class="section-title">
+                            <h4 class="title">Subscribe to this Service</h4>
+                            <p>Fill out this form to subscribe to this service.</p>
+                        </div>
+                        <form action="{{ route('form.submit') }}" id="subscribe-form" method="POST">
+                            @csrf
+                            <input type="hidden" name="service_id" value="{{ $service->id }}">
+                            <div class="row row--10">
+                                <!-- Personal Information -->
+                                <div class="form-group col-md-6">
+                                    <label for="name">{{ __('form.your_name') }}</label>
+                                    <input type="text" name="name" id="name" placeholder="{{ __('form.your_name') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="name"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="email">{{ __('form.email') }}</label>
+                                    <input type="email" name="email" id="email" placeholder="{{ __('form.email') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="email"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="mobile_number">{{ __('form.mobile_number') }}</label>
+                                    <input type="tel" name="mobile_number" id="mobile_number" placeholder="{{ __('form.mobile_number') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="mobile_number"></div>
+                                </div>
+
+                                <!-- Flight Information -->
+                                <div class="form-group col-md-6">
+                                    <label for="arrival_date">{{ __('form.arrival_date') }}</label>
+                                    <input type="date" name="arrival_date" id="arrival_date" placeholder="{{ __('form.arrival_date') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="arrival_date"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="landing_time">{{ __('form.landing_time') }}</label>
+                                    <input type="time" name="landing_time" id="landing_time" placeholder="{{ __('form.landing_time') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="landing_time"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="flight_number">{{ __('form.flight_number') }}</label>
+                                    <input type="text" name="flight_number" id="flight_number" placeholder="{{ __('form.flight_number') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="flight_number"></div>
+                                </div>
+
+                                <!-- Additional Information -->
+                                <div class="form-group col-md-6">
+                                    <label for="number_of_people">{{ __('form.number_of_people') }}</label>
+                                    <input type="number" name="number_of_people" id="number_of_people" placeholder="{{ __('form.number_of_people') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="number_of_people"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="vehicle">{{ __('form.vehicle') }}</label>
+                                    <input type="text" name="vehicle" id="vehicle" placeholder="{{ __('form.vehicle') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="vehicle"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="destination_hotel">{{ __('form.destination_hotel') }}</label>
+                                    <input type="text" name="destination_hotel" id="destination_hotel" placeholder="{{ __('form.destination_hotel') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="destination_hotel"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="return_transfer">{{ __('form.return_transfer') }}</label>
+                                    <input type="text" name="return_transfer" id="return_transfer" placeholder="{{ __('form.return_transfer') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="return_transfer"></div>
+                                </div>
+
+                                <!-- SIM Card Information -->
+                                <div class="form-group col-md-6">
+                                    <label for="sim_card">{{ __('form.sim_card') }}</label>
+                                    <input type="text" name="sim_card" id="sim_card" placeholder="{{ __('form.sim_card') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="sim_card"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sim_card_option">{{ __('form.sim_card_option') }}</label>
+                                    <input type="text" name="sim_card_option" id="sim_card_option" placeholder="{{ __('form.sim_card_option') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="sim_card_option"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sim_card_g">{{ __('form.sim_card_g') }}</label>
+                                    <input type="text" name="sim_card_g" id="sim_card_g" placeholder="{{ __('form.sim_card_g') }}" class="form-control" required>
+                                    <div class="invalid-feedback" data-field="sim_card_g"></div>
+                                </div>
+
+                                <!-- Message -->
+                                <div class="form-group col-12">
+                                    <label for="message">{{ __('form.your_message') }}</label>
+                                    <textarea name="message" id="message" cols="30" rows="4" placeholder="{{ __('form.your_message') }}" class="form-control"></textarea>
+                                    <div class="invalid-feedback" data-field="message"></div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="form-group col-12">
+                                    <button class="rn-btn amazing-btn btn-medium submit-btn" type="submit">{{ __('form.submit') }} <i class="icon-4"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="form-messages" class="mt-3"></div>
                     </div>
                     <div class="course-gallery">
                         <h5 class="title">Gallery</h5>
@@ -95,80 +193,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="subscription-form" class="contact-form form-style-2 mt-5">
-                        <div class="section-title">
-                            <h4 class="title">Subscribe to this Service</h4>
-                            <p>Fill out this form to subscribe to this service.</p>
-                        </div>
-                        <form action="{{ route('form.submit') }}" id="subscribe-form" method="POST">
-                            @csrf
-                            <input type="hidden" name="service_id" value="{{ $service->id }}">
-                            <div class="row row--10">
-                                <div class="form-group col-12">
-                                    <label for="name">{{ __('form.your_name') }}</label>
-                                    <input type="text" name="name" id="name" placeholder="{{ __('form.your_name') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="arrival_date">{{ __('form.arrival_date') }}</label>
-                                    <input type="date" name="arrival_date" id="arrival_date" placeholder="{{ __('form.arrival_date') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="landing_time">{{ __('form.landing_time') }}</label>
-                                    <input type="time" name="landing_time" id="landing_time" placeholder="{{ __('form.landing_time') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="flight_number">{{ __('form.flight_number') }}</label>
-                                    <input type="text" name="flight_number" id="flight_number" placeholder="{{ __('form.flight_number') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="number_of_people">{{ __('form.number_of_people') }}</label>
-                                    <input type="number" name="number_of_people" id="number_of_people" placeholder="{{ __('form.number_of_people') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="vehicle">{{ __('form.vehicle') }}</label>
-                                    <input type="text" name="vehicle" id="vehicle" placeholder="{{ __('form.vehicle') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="destination_hotel">{{ __('form.destination_hotel') }}</label>
-                                    <input type="text" name="destination_hotel" id="destination_hotel" placeholder="{{ __('form.destination_hotel') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="email">{{ __('form.email') }}</label>
-                                    <input type="email" name="email" id="email" placeholder="{{ __('form.email') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="mobile_number">{{ __('form.mobile_number') }}</label>
-                                    <input type="tel" name="mobile_number" id="mobile_number" placeholder="{{ __('form.mobile_number') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="return_transfer">{{ __('form.return_transfer') }}</label>
-                                    <input type="text" name="return_transfer" id="return_transfer" placeholder="{{ __('form.return_transfer') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="sim_card">{{ __('form.sim_card') }}</label>
-                                    <input type="text" name="sim_card" id="sim_card" placeholder="{{ __('form.sim_card') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="sim_card_option">{{ __('form.sim_card_option') }}</label>
-                                    <input type="text" name="sim_card_option" id="sim_card_option" placeholder="{{ __('form.sim_card_option') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="sim_card_g">{{ __('form.sim_card_g') }}</label>
-                                    <input type="text" name="sim_card_g" id="sim_card_g" placeholder="{{ __('form.sim_card_g') }}" required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="message">{{ __('form.your_message') }}</label>
-                                    <textarea name="message" id="message" cols="30" rows="4" placeholder="{{ __('form.your_message') }}"></textarea>
-                                </div>
-                                <div class="form-group col-12">
-                                    <button class="rn-btn amazing-btn btn-medium submit-btn" type="submit">
-                                        {{ __('form.submit') }} <i class="icon-4"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <div id="form-messages" class="mt-3"></div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -177,30 +202,44 @@
 @endsection
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#subscribe-form').on('submit', function(e) {
             e.preventDefault();
+            let form = $(this);
+            let submitButton = form.find('.submit-btn');
+            let formMessages = $('#form-messages');
+
+            submitButton.prop('disabled', true).html('Submitting... <i class="icon-4"></i>');
+
+            // إزالة رسائل الخطأ السابقة
+            form.find('.is-invalid').removeClass('is-invalid');
+            form.find('.invalid-feedback').text('');
+
             $.ajax({
-                url: "{{ route('form.submit') }}",
-                method: "POST",
-                data: $(this).serialize(),
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
                 success: function(response) {
-                    $('#form-messages').html('<div class="alert alert-success">' + response.message + '</div>');
-                    $('#subscribe-form')[0].reset();
+                    formMessages.html('<div class="alert alert-success">' + response.message + '</div>');
+                    form[0].reset();
                 },
                 error: function(xhr) {
                     if (xhr.status === 422) {
                         let errors = xhr.responseJSON.errors;
-                        let errorMessages = '<div class="alert alert-danger"><ul>';
                         $.each(errors, function(key, value) {
-                            errorMessages += '<li>' + value[0] + '</li>';
+                            let field = form.find('[name="' + key + '"]');
+                            field.addClass('is-invalid');
+                            field.siblings('.invalid-feedback').text(value[0]);
                         });
-                        errorMessages += '</ul></div>';
-                        $('#form-messages').html(errorMessages);
                     } else {
-                        $('#form-messages').html('<div class="alert alert-danger">An error occurred. Please try again later.</div>');
+                        formMessages.html('<div class="alert alert-danger">An error occurred. Please try again later.</div>');
                     }
+                },
+                complete: function() {
+                    submitButton.prop('disabled', false).html('{{ __('form.submit') }} <i class="icon-4"></i>');
                 }
             });
         });

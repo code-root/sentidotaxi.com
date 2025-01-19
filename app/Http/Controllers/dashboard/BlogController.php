@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\site\Category;
 use App\Models\Translation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
@@ -68,11 +69,11 @@ class BlogController extends Controller
             return response()->json(['message' => 'Name or Title translation not found'], 400);
         }
 
-        // رفع أول صورة فقط وتخزين مسارها في حقل image
+
         $imagePath = 'default.png';
-        if ($request->hasFile('images')) {
-            $firstImage = $request->file('images')[0];
-            $imagePath = $firstImage->store('Blogs', 'public');
+        if ($request->hasFile('image')) {
+            $firstImage = $request->file('image');
+            $imagePath = $firstImage->store('blogs', 'public');
         }
 
         $item = Blog::create([
@@ -91,7 +92,7 @@ class BlogController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $image) {
                 if ($index > 0) { // تخطي أول صورة لأنها تم تخزينها بالفعل في حقل image
-                    $path = $image->store('Blogs', 'public');
+                    $path = $image->store('blogs', 'public');
                     $item->images()->create(['path' => $path]);
                 }
             }
@@ -115,34 +116,72 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
-        $Blog = Blog::findOrFail($id);
-        $Blog->update($request->only(['status', 'price', 'description', 'category_id']));
+        try {
+            $blog = Blog::findOrFail($id);
 
-        foreach ($request->except(['_token', '_method']) as $key => $translations) {
-            if (is_array($translations)) {
-                foreach ($translations as $languageId => $value) {
-                    Translation::updateOrCreate(
-                        [
-                            'translatable_id' => $Blog->id,
-                            'translatable_type' => Blog::class,
-                            'language_id' => $languageId,
-                            'key' => $key,
-                        ],
-                        ['value' => $value, 'status' => 1]
-                    );
+            // تحديث البيانات الأساسية
+            $blog->update($request->only(['status', 'price', 'description', 'category_id']));
+
+            // تحديث الترجمات
+            foreach ($request->except(['_token', '_method', 'images']) as $key => $translations) {
+                if (is_array($translations)) {
+                    foreach ($translations as $languageId => $value) {
+                        Translation::updateOrCreate(
+                            [
+                                'translatable_id' => $blog->id,
+                                'translatable_type' => Blog::class,
+                                'language_id' => $languageId,
+                                'key' => $key,
+                            ],
+                            ['value' => $value, 'status' => 1]
+                        );
+                    }
                 }
             }
-        }
 
-        return redirect()->route('Blog.index')->with('success', 'Blog updated successfully');
+            // تحديث الصور (إذا تم تحميل صور جديدة)
+            if ($request->hasFile('images')) {
+                // حذف الصور القديمة
+                if ($blog->images) {
+                    foreach ($blog->images as $image) {
+                        Storage::disk('public')->delete($image->path);
+                        $image->delete();
+                    }
+                }
+
+                // رفع الصور الجديدة
+                foreach ($request->file('images') as $image) {
+                    $path = $image->store('blogs', 'public');
+                    $blog->images()->create(['path' => $path]);
+                }
+            }
+
+            return redirect()->route('blog.index')->with('success', 'Blog updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update blog.');
+        }
     }
 
     public function destroy(Request $request)
     {
-        $Blog = Blog::findOrFail($request->id);
-        $Blog->delete();
+        try {
+            $blog = Blog::findOrFail($request->id);
+            // حذف الصور المرتبطة بالمقالة (إذا كانت موجودة)
+            if ($blog->images) {
+                foreach ($blog->images as $image) {
+                    // حذف الصورة من التخزين
+                    Storage::disk('public')->delete($image->path);
+                    // حذف الصورة من قاعدة البيانات
+                    $image->delete();
+                }
+            }
 
-        return response()->json(['success' => 'Blog deleted successfully.']);
+            // حذف المقالة
+            $blog->delete();
+            return response()->json(['success' => 'Blog deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete blog.'], 500);
+        }
     }
 
     public function toggleStatus(Request $request)

@@ -18,10 +18,10 @@
                             <div class="logo">
                                 <a href="{{ url('/') }}">
                                     <img class="logo-light"
-                                        src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                                        src="{{ $web_logo }}"
                                         alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                                     <img class="logo-dark"
-                                        src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                                        src="{{ $web_logo }}"
                                         alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                                 </a>
                             </div>
@@ -89,10 +89,10 @@
                         <div class="logo">
                             <a href="{{ url('/') }}">
                                 <img class="logo-light"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                                    src="{{ $web_logo }}"
                                     alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                                 <img class="logo-dark"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                                    src="{{ $web_logo }}"
                                     alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                             </a>
                         </div>
@@ -123,10 +123,10 @@
                 <div class="content-wrap">
                     <div class="site-logo">
                         <img class="logo-light"
-                            src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                            src="{{ $web_logo }}"
                             alt="Corporate Logo">
                         <img class="logo-dark"
-                            src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                            src="{{ $web_logo }}"
                             alt="Corporate Logo">
                     </div>
                     <div class="close-button">

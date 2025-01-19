@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Site;
+use App\Http\Controllers\Controller;
 
 use App\Models\FormSubmission;
 use App\Models\Blog;

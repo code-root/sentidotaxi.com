@@ -24,6 +24,15 @@
                         </a>
                     </li>
 
+
+                    <!-- Orders -->
+                    <li class="menu-item">
+                        <a href="{{ route('orders.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-image"></i>
+                            <div class="text-truncate" data-i18n="Orders ">orders </div>
+                        </a>
+                    </li>
+                    
                     <li class="menu-item">
                         <a href="{{ route('appSlider.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-slider"></i>
@@ -38,6 +47,9 @@
                             <div class="text-truncate" data-i18n="Gallery">معرض الصور</div>
                         </a>
                     </li>
+
+
+
 
 
                     <!-- Gallery -->

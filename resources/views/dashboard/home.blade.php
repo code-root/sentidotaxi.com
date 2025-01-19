@@ -86,49 +86,7 @@
                     </tbody>
                 </table>
 
-                <h2 class="mt-5">Orders</h2>
-                <table id="formSubmissionsTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Arrival Date</th>
-                            <th>Landing Time</th>
-                            <th>Flight Number</th>
-                            <th>Number of People</th>
-                            <th>Vehicle</th>
-                            <th>Destination Hotel</th>
-                            <th>Return Transfer</th>
-                            <th>SIM Card</th>
-                            <th>SIM Card Option</th>
-                            <th>SIM Card G</th>
-                            <th>Message</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($formSubmissions as $index => $submission)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $submission->name }}</td>
-                                <td>{{ $submission->email }}</td>
-                                <td>{{ $submission->mobile_number }}</td>
-                                <td>{{ $submission->arrival_date->format('Y-m-d') }}</td>
-                                <td>{{ $submission->landing_time }}</td>
-                                <td>{{ $submission->flight_number }}</td>
-                                <td>{{ $submission->number_of_people }}</td>
-                                <td>{{ $submission->vehicle }}</td>
-                                <td>{{ $submission->destination_hotel }}</td>
-                                <td>{{ $submission->return_transfer }}</td>
-                                <td>{{ $submission->sim_card }}</td>
-                                <td>{{ $submission->sim_card_option }}</td>
-                                <td>{{ $submission->sim_card_g }}</td>
-                                <td>{{ $submission->message }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+       
 
                 <h2 class="mt-5">Charts</h2>
                 <div class="row">

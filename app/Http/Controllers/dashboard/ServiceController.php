@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\FormSubmission;
 use App\Models\Service;
 use App\Models\ServiceOrder;
 use App\Models\site\Category;
@@ -154,6 +155,10 @@ class ServiceController extends Controller
         return response()->json(['success' => 'Service status updated successfully.']);
     }
 
+    public function getOrders () {
+        $data  = FormSubmission::get();
+        return view('dashboard.orders.index', compact('data'));
+    }
 
 
 }

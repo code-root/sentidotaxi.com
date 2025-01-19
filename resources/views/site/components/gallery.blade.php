@@ -17,7 +17,7 @@
                     <div class="col-md-4 mb-4 {{ $category->name_en }}">
                         <a href="" class="amazing-popup-image amazing-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
                             <div class="thumbnail-x">
-                                <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="Gallery Image" class="img-fluid">
+                                <img src="/storage/app/public/{{ $gallery->image }}" alt="Gallery Image" class="img-fluid">
                             </div>
                         </a>
                     </div>

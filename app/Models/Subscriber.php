@@ -14,6 +14,7 @@ class Subscriber extends Model
     // تحديد الأعمدة القابلة للتعبئة
     protected $fillable = [
         'email',
+        'user_id',
     ];
-    
+
 }

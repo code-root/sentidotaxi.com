@@ -1,3 +1,4 @@
+@if(count($partners) > 0)
 <div class="amazing-team-area team-area-8 gap-tb-text"
     @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
@@ -14,13 +15,11 @@
                         <div class="inner">
                             <div class="thumbnail-wrap">
                                 <div class="thumbnail">
-                                    <img src="{{ route('api.image.partners') }}?id={{ $partner->id }}"
-                                    style="width: 50%;height: 19%;"
-                                        alt="{{ $partner->name }}">
+                                    <img src="/storage/app/public/{{ $partner->logo }}" style="width: 50%;height: 19%;"alt="{{ $partner->name }}">
                                 </div>
                             </div>
                             <div class="content">
-                                <h5 class="title">{{ $partner->{'name_' . session('locale')} }}</h5>
+                                <h5 class="title">{{ $partner->name  }}</h5>
                             </div>
                         </div>
                     </div>
@@ -30,3 +29,4 @@
         </div>
     </div>
 </div>
+@endif

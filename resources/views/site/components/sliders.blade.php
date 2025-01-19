@@ -11,10 +11,10 @@
                             <div class="col-7">
                                 <div class="banner-content">
                                     <span style="font-family: system-ui;color: #1f2432;font-weight: bold;font-size: larger;" data-sal="slide-up"
-                                        data-sal-duration="1000">{{ getTranslations($slider->tr_token ,  'name' ) }}</span>
+                                        data-sal-duration="1000">{{ getTranslationSliders($slider->tr_token ,  'name' ) }}</span>
                                     <h1 class="title" data-sal-delay="100" data-sal="slide-up"
-                                        data-sal-duration="1000">{{ getTranslations($slider->tr_token ,  'title' ) }}</h1>
-                                    <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">{{ getTranslations($slider->tr_token ,  'details' ) }} </p>
+                                        data-sal-duration="1000">{{ getTranslationSliders($slider->tr_token ,  'title' ) }}</h1>
+                                    <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">{{ getTranslationSliders($slider->tr_token ,  'details' ) }} </p>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@
                         <div class="logo">
                             <a href="/">
                                 <img class="logo-light"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
+                                    src="{{ $web_logo }}"
                                     alt="Corporate Logo">
                             </a>
                         </div>
@@ -35,7 +35,7 @@
                                 </li>
                                     @forelse ($pages as $page)
                                     <li><a
-                                            href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
+                                        href="{{ route('page.show', $page->id) }}">{{ getTranslations($page->tr_token ,  'name' )  }}</a>
                                     </li>
                                 @empty
                                     <li><a href="#">No pages found</a></li>

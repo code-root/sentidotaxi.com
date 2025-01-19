@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Lang;
         return Translation::select('value')->where('token', $token)->where('language_id', getLanguageId())->where('key', $key)->first()['value'] ?? 'value' ;
     }
 
+
+    function getTranslationSliders($token ,  $key ) {
+        return Translation::select('value')->where('token', $token)->where('language_id', getLanguageId())->where('key', $key)->first()['value'] ?? '' ;
+    }
+
+
     function getLanguageId (){
         return Language::where('code', session('locale', 'ar'))->first()['id'] ?? 2;
     }

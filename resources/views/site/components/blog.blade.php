@@ -1,3 +1,4 @@
+@if(count($blogs) > 0)
 <div class="amazing-blog-area blog-area-3 amazing-section-gap sales-coach-blog">
         <div class="container">
             <ul class="blog-section-title">
@@ -22,7 +23,7 @@
                             <div class="inner">
                                 <div class="thumbnail">
                                     <a href="{{ route('blog.show', $blog->id) }}">
-                                        <img src="{{ asset('storage/' . $blog->image) }}" alt="Blog Images">
+                                        <img src="/storage/app/public/{{ $blog->image }}" alt="Blog Images">
                                     </a>
                                     <div class="content">
                                         <h3 class="title"><a href="{{ route('blog.show', $blog->id) }}">{{ $blog->title }}</a></h3>
@@ -40,3 +41,4 @@
             </div>
         </div>
     </div>
+@endif

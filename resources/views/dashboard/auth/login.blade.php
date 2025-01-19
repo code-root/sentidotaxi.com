@@ -16,14 +16,14 @@
     <link rel="stylesheet" type="text/css" href="https://admin.pixelstrap.com/cion/assets/css/style.css">
     <link id="color" rel="stylesheet" href="https://admin.pixelstrap.com/cion/assets/css/color-1.css" media="screen">
     <link rel="stylesheet" type="text/css" href="https://admin.pixelstrap.com/cion/assets/css/responsive.css">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ $web_logo }}">
 </head>
   <body>
         <!-- login page start-->
         <div class="container-fluid p-0">
             <div class="row m-0">
               <div class="col-12 p-0">
-                <div class="login-card login-dark" style="background-image: url('https://cutewallpaper.org/21/cryptocurrency-wallpaper-hd/Why-is-Malwarebytes-blocking-Coinhive-Malwarebytes-Labs-.jpg');">
+                <div class="login-card login-dark" style="background-image: url('https://redpithemes.com/Documentation/assets/img/page_bg/page_bg_blur03.jpg');">
                   <div>
                     <div>
 
@@ -45,7 +45,8 @@
                         @csrf
                         <h3>Sign in to account</h3>
                         <p>Enter your email & password to login</p>
-                        <a class="logo" href=""><img class="img-fluid for-light" src="{{ asset('storage' . ($settings['logo'] ?? 'default-logo.png')) }}" alt="looginpage" width="60%"><img class="img-fluid for-dark" src="/logo.png"  width="10%" alt="looginpage"></a>
+                        <a class="logo" href=""><img class="img-fluid for-light" src="{{ $web_logo }}" alt="looginpage" width="60%">
+                            <img class="img-fluid for-dark" src="{{ $web_logo }}"  width="10%" alt="looginpage"></a>
 
                         <div class="form-group">
                             <label for="emailaddress">Email address</label>
@@ -80,7 +81,7 @@
                           </div>
                         </div>
                         <br>
-         
+
                       </form>
                     </div>
                   </div>
@@ -89,9 +90,4 @@
 
             </div>
         </div>
-        <footer class="footer footer-alt">
-            <p class="text-muted">The final version issuance No. 3.1 Developer By <a href="{{ config('developer.link') }}">{{ config('developer.name') }}</a></p>
-            <script>document.write(new Date().getFullYear())</script>
-        </footer>
-
 </body>

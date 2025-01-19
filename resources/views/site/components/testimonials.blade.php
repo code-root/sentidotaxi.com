@@ -1,3 +1,4 @@
+@if(count($testimonials) > 0)
 <div class="testimonial-area-10 gap-top-equal photography-testimonial amazing-animated-shape">
     <div class="container amazing-animated-shape">
         <div class="testimonial-heading-area">
@@ -30,7 +31,7 @@
                 @foreach($testimonials as $testimonial)
                     <div class="nav-thumb swiper-slide">
                         <div class="clint-thumb">
-                            <img src="{{ asset('/storage/app/public/' . $testimonial->image) }}" width="104" height="104" alt="Testimonial" loading="">
+                            <img src="/storage/app/public/{{  $testimonial->image }}" width="104" height="104" alt="Testimonial" loading="">
                         </div>
                     </div>
                 @endforeach
@@ -64,3 +65,4 @@
     </div>
 </div>
 <!-- End Testimonial Area  -->
+@endif

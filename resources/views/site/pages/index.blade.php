@@ -1,12 +1,12 @@
 @extends('site.layouts.app')
 
-@section('title', $page->{'name_' . $locale})
+@section('title',getTranslations($page->tr_token ,  'name' )  )
 @section('content')
     <div class="amazing-breadcrumb-area" @if ($locale === 'ar') style="direction: rtl;" @endif>
         <div class="container">
             <div class="breadcrumb-inner">
                 <div class="page-title">
-                    <h1 class="title">{{ $locale === 'ar' ? $page->name_ar : $page->name_en }}</h1>
+                    <h1 class="title">{{ getTranslations($page->tr_token ,  'name' )  }}</h1>
                 </div>
                 <ul class="amazing-breadcrumb">
                     <li class="breadcrumb-item">
@@ -18,7 +18,8 @@
                         <i class="{{ $locale === 'ar' ? 'icon-angle-left' : 'icon-angle-right' }}"></i>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ $locale === 'ar' ? $page->name_ar : $page->name_en }}
+
+                        {{ getTranslations($page->tr_token ,  'name' )  }}
                     </li>
                 </ul>
             </div>
@@ -39,8 +40,8 @@
                     <div class="contact-me">
                         <div class="inner">
                             <div class="contact-us-info">
-                                <h3 class="heading-title">{!! $page->{'name_' . $locale} !!}</h3>
-                                <p>{!! $page->{'description_' . $locale} !!}</p>
+                                <h3 class="heading-title">{{ getTranslations($page->tr_token ,  'name' )  }}</h3>
+                                <p>{!! getTranslations($page->tr_token ,  'description' )   !!}</p>
                             </div>
                         </div>
                     </div>

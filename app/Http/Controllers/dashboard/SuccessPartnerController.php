@@ -30,7 +30,7 @@ class SuccessPartnerController extends Controller
         // Handle multiple files
         $logos = [];
         foreach ($request->file('logos') as $file) {
-            $logoPath = $file->store('public/logos');
+            $logoPath = $file->store('logos');
             $logos[] = ($logoPath);
         }
 
@@ -80,7 +80,7 @@ class SuccessPartnerController extends Controller
 
         // Update logo if provided
         if ($request->hasFile('logo')) {
-            Storage::delete('public/logos/' . $successPartner->logo);
+            Storage::delete('logos/' . $successPartner->logo);
             $logoPath = $request->file('logo')->store('successPartner');
             $successPartner->logo = basename($logoPath);
         }
@@ -98,7 +98,7 @@ class SuccessPartnerController extends Controller
         }
 
         // Delete associated logo file
-        Storage::delete('public/logos/' . $successPartner->logo);
+        Storage::delete('logos/' . $successPartner->logo);
 
         $successPartner->delete();
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceImage extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [
@@ -14,8 +15,10 @@ class ServiceImage extends Model
         'path',
     ];
 
+
     public function service()
     {
         return $this->belongsTo(Service::class);
     }
+
 }

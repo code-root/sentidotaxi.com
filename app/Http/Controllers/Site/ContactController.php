@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Site;
+use App\Http\Controllers\Controller;
 
 use App\Models\site\Page;
-use App\Models\Contact;
+use App\Models\site\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-
 
 
     public function store(Request $request)
@@ -34,12 +34,9 @@ class ContactController extends Controller
     }
 
 
-    public function index()
+    public function contact()
     {
-        $contacts = Contact::all();
-        $page = Page::where('status' , 'site')->limit(6)->latest()->get();
-
-        return view('dashboard.contacts.index', compact('contacts' , 'page'));
+        return view('site.pages.contact');
     }
 
     public function destroy($id)
@@ -51,13 +48,6 @@ class ContactController extends Controller
     }
 
 
-    public function contact()
-    {
-
-        $pages = Page::where('status' , 'site')->limit(6)->latest()->get();
-        return view('site.pages.contact', compact('pages'));
-
-    }
 
 
 }

@@ -18,20 +18,7 @@ class PageController extends Controller
         return view('dashboard.pages.index', compact('pages'));
     }
 
-    public function showPage($name)
-    {
-        // Replace dashes with spaces
-        $name = str_replace('-', ' ', $name);
-        // Search for the page by name
-        $page = Page::where('name', 'LIKE', "%$name%")->first();
-
-        if (!$page) {
-            return abort(404, 'Page not found');
-        }
-
-        return view('site.pages.index', compact('page'));
-    }
-
+ 
 
 
     public function create()

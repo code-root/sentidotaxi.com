@@ -1,3 +1,4 @@
+@if(count($faqs) > 0)
 <div class="amazing-faq-area faq-style-12 section-gap-equal"
     @if($locale == 'ar') style="direction: rtl;" @endif>
     <div class="container">
@@ -61,3 +62,4 @@
         </div>
     </div>
 </div>
+@endif

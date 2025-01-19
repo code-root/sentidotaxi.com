@@ -48,7 +48,7 @@
                         <div class="inner">
                             <div class="thumbnail">
                                 <a href="{{ route('service.details', $service->id) }}">
-                                    <img src="{{ asset('assets/images/service/' . $service->image) }}" alt="{{ $service->name }}">
+                                    <img src="{{ asset('/storage/app/public/' . $service->image) }}" alt="{{ $service->name }}">
                                 </a>
                                 <div class="time-top">
                                     <span class="duration"><i class="icon-61"></i>{{ $service->duration }} Weeks</span>

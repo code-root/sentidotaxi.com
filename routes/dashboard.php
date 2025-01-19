@@ -9,6 +9,7 @@ use App\Http\Controllers\dashboard\SectionController;
 use App\Http\Controllers\dashboard\BlogController;
 use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\CategoryController;
+use App\Http\Controllers\dashboard\ContactController;
 use App\Http\Controllers\dashboard\SettingsController;
 use App\Http\Controllers\dashboard\ImageItemController;
 use App\Http\Controllers\dashboard\TestimonialController;
@@ -66,6 +67,9 @@ Route::middleware('auth:web')->group(function () {
         Route::delete('/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.delete');
 
     });
+    Route::get('orders', [ServiceController::class, 'getOrders'])->name('orders.index');
+
+
 
 
     Route::group(['prefix' => 'pages'], function () {
@@ -93,19 +97,18 @@ Route::middleware('auth:web')->group(function () {
         Route::post('get-translations', [ServiceController::class, 'getTranslations'])->name('service.getTranslations');
     });
 
-        // مسارات الخدمات (Service)
-        Route::prefix('blog')->group(function () {
-            Route::get('/', [BlogController::class, 'index'])->name('blog.index');
-            Route::get('/getData', [BlogController::class, 'getData'])->name('blog.data');
-            Route::post('/create', [BlogController::class, 'create'])->name('blog.create');
-            Route::get('/create', [BlogController::class, 'createPage'])->name('blog.create.page');
-            Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
-            Route::post('/update/{id}', [BlogController::class, 'update'])->name('blog.update');
-            Route::delete('/destroy', [BlogController::class, 'destroy'])->name('blog.destroy');
-            Route::post('/toggle-status', [BlogController::class, 'toggleStatus'])->name('blog.toggleStatus');
-            Route::post('get-translations', [BlogController::class, 'getTranslations'])->name('blog.getTranslations');
-        });
-
+    Route::prefix('blog')->group(function () {
+        Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('/getData', [BlogController::class, 'getData'])->name('blog.data');
+        Route::post('/create', [BlogController::class, 'create'])->name('blog.create');
+        Route::get('/create', [BlogController::class, 'createPage'])->name('blog.create.page');
+        Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+        Route::post('/update/{id}', [BlogController::class, 'update'])->name('blog.update');
+        Route::delete('/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy'); // تم تعديل المسار
+        Route::post('/toggle-status', [BlogController::class, 'toggleStatus'])->name('blog.toggleStatus');
+        Route::post('get-translations', [BlogController::class, 'getTranslations'])->name('blog.getTranslations');
+    });
+    
     Route::group(['prefix'=>'app-slider'], function(){
         Route::get('/', [SliderController::class, 'index'])->name('appSlider.index');
         Route::get('/getData', [SliderController::class, 'getData'])->name('appSlider.data');

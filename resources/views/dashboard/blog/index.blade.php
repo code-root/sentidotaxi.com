@@ -79,13 +79,17 @@ $(document).ready(function() {
                 data: 'id',
                 render: function(data, type, row) {
                     var editUrl = `{{ route("blog.edit", ":id") }}`.replace(':id', data);
+                    var deleteUrl = `{{ route("blog.destroy", ":id") }}`.replace(':id', data);
                     return `
-                        <a href="${editUrl}" class="dropdown-item edit-blog">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                        <a href="#" class="dropdown-item delete-blog" data-id="${data}">
-                            <i class="fa fa-trash"></i> Delete
-                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a href="${editUrl}" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a></li>
+                                <li><a href="#" class="dropdown-item delete-blog" data-id="${data}"><i class="fa fa-trash"></i> Delete</a></li>
+                            </ul>
+                        </div>
                     `;
                 }
             }
@@ -93,8 +97,10 @@ $(document).ready(function() {
     });
 
     $('#data-x').on('click', '.delete-blog', function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
+    e.preventDefault();
+    var id = $(this).data('id');
+
+    if (confirm('Are you sure you want to delete this blog?')) {
         $.ajax({
             url: "{{ route('blog.destroy', ':id') }}".replace(':id', id),
             type: "DELETE",
@@ -103,61 +109,22 @@ $(document).ready(function() {
             },
             success: function(response) {
                 table.ajax.reload();
-            }
-        });
-    });
-
-    $('#submitForm').click(function(e) {
-        e.preventDefault();
-        var content = tinymce.get('content').getContent();
-        var formData = new FormData($('#store-form')[0]);
-        formData.append('content', content);
-
-        $.ajax({
-            url: "{{ route('blog.create') }}",
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                $('#add-new-record').modal('hide');
-                $('.form-control').removeClass('is-invalid');
                 Lobibox.notify('success', {
                     title: 'Success',
-                    msg: 'Blog added successfully.'
+                    msg: 'Blog deleted successfully.'
                 });
-                $('#store-form')[0].reset();
-                table.ajax.reload();
             },
             error: function(xhr) {
-                var errors = JSON.parse(xhr.responseText).errors;
-                var errorMessages = '';
-                $.each(errors, function(key, value) {
-                    $('#' + key).addClass('is-invalid');
-                    errorMessages += '<li>' + value.join(', ') + '</li>';
+                Lobibox.notify('error', {
+                    title: 'Error',
+                    msg: 'Failed to delete blog.'
                 });
-                $('#error-messages').html('<div class="alert alert-danger"><ul>' + errorMessages + '</ul></div>');
             }
         });
-    });
+    }
+});
 
-    $(document).on("click", ".delete-blog", function () {
-        var itemId = $(this).data('id');
-        $("#deleteModal").modal('show');
-        $("#confirmDelete").on("click", function () {
-            $.ajax({
-                type: 'DELETE',
-                url: "{{ route('blog.destroy', ':id') }}".replace(':id', itemId),
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                },
-                success: function(data) {
-                    $("#deleteModal").modal('hide');
-                    table.ajax.reload();
-                }
-            });
-        });
-    });
+
 });
 </script>
 @endsection

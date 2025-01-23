@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         // توفير اللغة في جميع الصفحات
         view()->composer('*', function ($view) {
-            $locale = session('locale', 'ar');
+            $locale = session('locale', 'en');
             $settings = Setting::where('type', $locale)->pluck('value', 'slug')->toArray();
             $basicFields = Setting::where('type', 'basic')->pluck('value', 'slug')->toArray();
             $languages = Language::get();

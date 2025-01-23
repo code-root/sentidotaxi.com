@@ -1,3 +1,5 @@
+@if(count($testimonials) > 0)
+
 <div class="testimonial-area-18 gap-top-equal">
     <div class="container">
         <div class="section-title section-center sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
@@ -32,3 +34,4 @@
         </div>
     </div>
 </div>
+@endif

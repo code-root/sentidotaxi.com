@@ -54,30 +54,11 @@
                                         <i class="icon-54"></i>
                                     </button>
                                 </li>
-                                <div class="header-mainnav">
-                                    <nav class="mainmenu-nav">
-                                        <ul class="mainmenu">
-                                <li class="has-droupdown">
-
-                                    <a href="#">{{ $locale }}</a>
-
-                                    <ul class="submenu">
-                                    @foreach ($languages as $language)
-                                                    <li><a class="dropdown-item" href="{{ url('set-locale/' . $language->code) }}">{{ $language->name }}</a></li>
-                                                @endforeach
-                                            </li>
-                                        </ul>
-                                        </nav>
-                                    </div>
                                 <li class="theme-toggle" id="theme-toggle-button">
                                     <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon"
                                         style="border-radius: 4px;width: 35px;height: 27px;background-color: #ffffff;">
                                 </li>
-
                             </ul>
-
-
-
                             </li>
                         </div>
                     </div>

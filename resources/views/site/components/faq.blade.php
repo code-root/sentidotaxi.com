@@ -51,10 +51,10 @@
 
                     <ul class="shape-group">
                         <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
-                            <img data-depth="1.5" src="assets/site/images/faq/shape-18.png" alt="Shape Images">
+                            <img data-depth="1.5" src="/assets/site/images/faq/shape-18.png" alt="Shape Images">
                         </li>
                         <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
-                            <img data-depth="-1.5" src="assets/site/images/faq/shape-17.png" alt="Shape Images">
+                            <img data-depth="-1.5" src="/assets/site/images/faq/shape-17.png" alt="Shape Images">
                         </li>
                     </ul>
                 </div>

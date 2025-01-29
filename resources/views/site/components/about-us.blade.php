@@ -49,10 +49,10 @@
                     <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" src="/storage/app/{{ $basicFields['about_image_1'] }}" alt="About Image">
                     <ul class="shape-group">
                         <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
-                            <img data-depth="2" src="assets/site/images/about/shape-13.png" alt="Shape">
+                            <img data-depth="2" src="/assets/site/images/about/shape-13.png" alt="Shape">
                         </li>
-                        <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200"><img data-depth="-2" src="assets/site/images/about/shape-39.png" alt="Shape"></li>
-                        <li class="shape-3 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200"><img data-depth="2" src="assets/site/images/about/shape-07.png" alt="Shape"></li>
+                        <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200"><img data-depth="-2" src="/assets/site/images/about/shape-39.png" alt="Shape"></li>
+                        <li class="shape-3 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200"><img data-depth="2" src="/assets/site/images/about/shape-07.png" alt="Shape"></li>
                         <li class="shape-4" data-sal-delay="500" data-sal="fade" data-sal-duration="200"><span></span></li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@
         </div>
     </div>
     <ul class="shape-group">
-        <li class="shape-5"><img class="rotateit" src="assets/site/images/about/shape-13.png" alt="Shape"></li>
+        <li class="shape-5"><img class="rotateit" src="/assets/site/images/about/shape-13.png" alt="Shape"></li>
         <li class="shape-6"><span></span></li>
     </ul>
 </div>

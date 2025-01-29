@@ -13,6 +13,7 @@ use App\Models\Section;
 use App\Models\Service;
 use App\Models\Blog;
 use App\Models\site\Category;
+use App\Models\site\Gallery;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\App;
 
@@ -69,6 +70,12 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('site.components.testimonials', function ($view) {
             $view->with('testimonials', Testimonial::all());
         });
+
+        view()->composer('site.components.gallery', function ($view) {
+            $view->with('gallery', Gallery::with(['category'])->get());
+        });
+
+
 
         view()->composer('site.pages.testimonial-all', function ($view) {
             $view->with('testimonials', Testimonial::all());

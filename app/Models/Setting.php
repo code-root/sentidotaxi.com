@@ -22,10 +22,10 @@ class Setting extends Model
 
     public static function getLogoSettings()
     {
-        return Cache::remember('basic_settings', 3600, function () {
-            return 'storage/app/public/' . self::where('type', 'basic')
+        // return Cache::remember('basic_settings', 3600, function () {
+            return '/storage/app/' . self::where('type', 'basic')
                 ->where('slug', 'logo')
                 ->value('value') ?? 'images/default-logo.png';
-        });
+        // });
     }
 }

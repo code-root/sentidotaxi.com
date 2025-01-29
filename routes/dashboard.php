@@ -67,6 +67,27 @@ Route::middleware('auth:web')->group(function () {
         Route::delete('/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.delete');
 
     });
+
+
+    Route::prefix('faq')->group(function () {
+        Route::get('/', [FaqController::class, 'index'])->name('dashboard.faq.index');
+        Route::get('/getData', [FaqController::class, 'getData'])->name('dashboard.faq.data');
+        Route::post('/create', [FaqController::class, 'create'])->name('dashboard.faq.create');
+        Route::get('/create', [FaqController::class, 'createPage'])->name('dashboard.faq.create.page');
+        Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('dashboard.faq.edit');
+        Route::post('/update/{id}', [FaqController::class, 'update'])->name('dashboard.faq.update');
+        Route::delete('/destroy', [FaqController::class, 'destroy'])->name('dashboard.faq.destroy');
+        Route::post('/toggle-status', [FaqController::class, 'toggleStatus'])->name('dashboard.faq.toggleStatus');
+        Route::post('get-translations', [FaqController::class, 'getTranslations'])->name('dashboard.faq.getTranslations');
+    });
+
+
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', [SettingsController::class, 'index'])->name('settings.index');
+        Route::get('get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
+        Route::post('update', [SettingsController::class, 'update'])->name('settings.update');
+    });
+
     Route::get('orders', [ServiceController::class, 'getOrders'])->name('orders.index');
 
 
@@ -87,6 +108,7 @@ Route::middleware('auth:web')->group(function () {
     // مسارات الخدمات (Service)
     Route::prefix('services')->group(function () {
         Route::get('/', [ServiceController::class, 'index'])->name('service.index');
+        Route::post('/deleteImage', [ServiceController::class, 'deleteImage'])->name('service.image.delete');
         Route::get('/getData', [ServiceController::class, 'getData'])->name('service.data');
         Route::post('/create', [ServiceController::class, 'create'])->name('service.create');
         Route::get('/create', [ServiceController::class, 'createPage'])->name('service.create.page');
@@ -108,7 +130,7 @@ Route::middleware('auth:web')->group(function () {
         Route::post('/toggle-status', [BlogController::class, 'toggleStatus'])->name('blog.toggleStatus');
         Route::post('get-translations', [BlogController::class, 'getTranslations'])->name('blog.getTranslations');
     });
-    
+
     Route::group(['prefix'=>'app-slider'], function(){
         Route::get('/', [SliderController::class, 'index'])->name('appSlider.index');
         Route::get('/getData', [SliderController::class, 'getData'])->name('appSlider.data');
@@ -129,17 +151,6 @@ Route::middleware('auth:web')->group(function () {
     });
 
 
-    Route::prefix('faq')->group(function () {
-        Route::get('/', [FaqController::class, 'index'])->name('dashboard.faq.index');
-        Route::get('/getData', [FaqController::class, 'getData'])->name('dashboard.faq.data');
-        Route::post('/create', [FaqController::class, 'create'])->name('dashboard.faq.create');
-        Route::get('/create', [FaqController::class, 'createPage'])->name('dashboard.faq.create.page');
-        Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('dashboard.faq.edit');
-        Route::post('/update/{id}', [FaqController::class, 'update'])->name('dashboard.faq.update');
-        Route::delete('/destroy', [FaqController::class, 'destroy'])->name('dashboard.faq.destroy');
-        Route::post('/toggle-status', [FaqController::class, 'toggleStatus'])->name('dashboard.faq.toggleStatus');
-        Route::post('get-translations', [FaqController::class, 'getTranslations'])->name('dashboard.faq.getTranslations');
-    });
 
 
     Route::prefix('categories')->group(function () {

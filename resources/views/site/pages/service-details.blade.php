@@ -1,6 +1,8 @@
 @extends('site.layouts.app')
 
 @section('title', $service->title)
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 @section('content')
 <div class="amazing-breadcrumb-area breadcrumb-style-3">
@@ -32,6 +34,16 @@
                     <div class="course-overview">
                         <h3 class="heading-title">Service Description</h3>
                         <p>{!! getTranslations($service->tr_token, 'description') !!}</p>
+                    </div>
+                    <div class="course-gallery">
+                        <h5 class="title">Gallery</h5>
+                        <div class="row">
+                            @foreach($service->images as $image)
+                            <div class="col-md-4">
+                                <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-fluid">
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div id="subscription-form" class="contact-form form-style-2 mt-5">
                         <div class="section-title">
@@ -130,16 +142,7 @@
                         </form>
                         <div id="form-messages" class="mt-3"></div>
                     </div>
-                    <div class="course-gallery">
-                        <h5 class="title">Gallery</h5>
-                        <div class="row">
-                            @foreach($service->images as $image)
-                            <div class="col-md-4">
-                                <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-fluid">
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="col-lg-4">

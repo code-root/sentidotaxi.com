@@ -35,6 +35,6 @@ class Gallery extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(Category::class , 'id' , 'category_id');
     }
 }

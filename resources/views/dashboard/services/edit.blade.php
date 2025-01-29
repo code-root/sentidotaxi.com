@@ -34,7 +34,6 @@
                     </div>
                     <form method="post" action="{{ route('service.update', $service->id) }}" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-6">
@@ -53,11 +52,12 @@
                                     <input type="file" id="images" name="images[]" class="form-control" multiple>
                                     <div class="mt-3">
                                         @foreach($service->images as $image)
-                                        <div class="image-preview" style="display: inline-block; position: relative;">
-                                            <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-thumbnail" style="width: 100px; height: 100px;">
-                                            <button type="button" class="btn btn-danger btn-sm delete-image" data-id="{{ $image->id }}" style="position: absolute; top: 0; right: 0;">&times;</button>
-                                        </div>
-                                        @endforeach
+    <div class="image-preview" style="display: inline-block; position: relative;">
+        <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-thumbnail" style="width: 100px; height: 100px;">
+        <button type="button" class="btn btn-danger btn-sm delete-image" data-id="{{ $image->id }}" style="position: absolute; top: 0; right: 0;">&times;</button>
+    </div>
+@endforeach
+
                                     </div>
                                 </div>
                                 <input type="hidden" id="token" name="token" value="{{ $service->token }}" class="form-control">
@@ -79,7 +79,7 @@
                                     @if ($field['type'] === 'input')
                                     <input type="text" name="{{ $key }}[{{ defaultLanguage() }}]" class="form-control" value="{{ $service->translations->where('key', $key)->first()->value ?? '' }}" required>
                                     @elseif ($field['type'] === 'textarea')
-                                    <textarea name="{{ $key }}[{{ defaultLanguage() }}]" class="form-control" required>{{ $service->translations->where('key', $key)->first()->value ?? '' }}</textarea>
+                                    <textarea name="{{ $key }}[{{ defaultLanguage() }}]" class="form-control" >{{ $service->translations->where('key', $key)->first()->value ?? '' }}</textarea>
                                     @endif
                                 </div>
                                 @endforeach
@@ -96,21 +96,53 @@
 </div>
 
 @section('footer')
-<script src="{{ asset('assets/app-assets/vendors/js/extensions/sweetalert.min.js') }}"></script>
-<script src="{{ asset('assets/dashboard/js/app.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
 <script>
 $(document).ready(function() {
 
-tinymce.init({
-    selector: 'textarea',
-    height: 400,
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table',
-    toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | link image | code',
-    branding: false,
-    setup: function (editor) {
-        editor.on('keyup', saveTextData);
-    }
-});
+    function saveTextData() {
+    const languageRow = $('.language-row');
+    const selectedLanguage = $('#language-select').val();
+
+    const textData = {
+        language_id: selectedLanguage,
+        token:  "{{ $service->tr_token }}",
+        description: tinyMCE.get('tt-description').getContent(),
+        meta: languageRow.find('input[name="meta[]"]').val(),
+        name: languageRow.find('input[name="name[]"]').val()
+    };
+
+    $.ajax({
+        url: "{{ route('storeText') }}",
+        type: 'POST',
+        data: textData,
+        success: function(response) {
+            console.log('Content saved:', response);
+        },
+        error: function(xhr) {
+            console.error('Error saving content:', xhr);
+        }
+    });
+}
+
+    tinymce.init({
+        selector: 'textarea',
+        height: 400,
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table',
+        toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | link image | code',
+        branding: false,
+        setup: function (editor) {
+            editor.on('keyup', saveTextData);
+            editor.on('change', function () {
+                tinymce.triggerSave(); // تحديث محتوى textarea
+            });
+        }
+    });
+
+    $('form').on('submit', function() {
+        tinymce.triggerSave(); // تحديث محتوى جميع حقول TinyMCE
+    });
 
     // عند تغيير اللغة
     $('#language').change(function() {
@@ -151,7 +183,7 @@ tinymce.init({
                                 @if ($field['type'] === 'input')
                                     <input type="text" name="{{ $key }}[${languageId}]" class="form-control" value="" required>
                                 @elseif ($field['type'] === 'textarea')
-                                    <textarea name="{{ $key }}[${languageId}]" class="form-control" required></textarea>
+                                    <textarea name="{{ $key }}[${languageId}]" class="form-control" ></textarea>
                                 @endif
                             </div>
                         `;
@@ -162,25 +194,31 @@ tinymce.init({
         });
     });
 
-    // حذف الصورة
     $('.delete-image').click(function() {
         var imageId = $(this).data('id');
         var imageElement = $(this).closest('.image-preview');
 
-        $.ajax({
-            url: "{{ route('image.delete') }}",
-            type: 'POST',
-            data: {
-                '_token': '{{ csrf_token() }}',
-                'id': imageId
-            },
-            success: function(response) {
-                imageElement.remove();
-            },
-            error: function(xhr) {
-                console.error(xhr);
-            }
-        });
+        if (confirm('هل أنت متأكد من أنك تريد حذف هذه الصورة؟')) {
+            $.ajax({
+                url: "{{ route('service.image.delete') }}",
+                type: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'id': imageId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        imageElement.remove();
+                    } else {
+                        alert('حدث خطأ أثناء محاولة حذف الصورة.');
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr);
+                    alert('حدث خطأ أثناء محاولة حذف الصورة.');
+                }
+            });
+        }
     });
 });
 </script>

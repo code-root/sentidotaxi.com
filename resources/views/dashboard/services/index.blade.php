@@ -57,6 +57,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this service?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @section('footer')
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -64,7 +85,34 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
+
+$(document).on("click", ".delete-service", function () {
+    var itemId = $(this).data('id');
+    $("#deleteModal").modal('show');
+
+    $("#confirmDelete").off().on("click", function () {
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ route('service.destroy') }}",
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'id': itemId
+            },
+            success: function(response) {
+                $("#deleteModal").modal('hide');
+                $('#data-x').DataTable().ajax.reload();
+            },
+            error: function(response) {
+                alert('Failed to delete the service.');
+            }
+        });
+    });
+});
+
+
 $(document).ready(function() {
+
+
     var table = $('#data-x').DataTable({
         processing: true,
         serverSide: true,
@@ -72,26 +120,30 @@ $(document).ready(function() {
             url: "{{ route('service.data') }}",
             type: 'GET'
         },
-        columns: [
-            { data: 'name' },
-            { data: 'title' },
-            { data: 'price' },
-            { data: 'status' },
-            {
-                data: 'id',
-                render: function(data, type, row) {
-                    var editUrl = `{{ route("service.edit", ":id") }}`.replace(':id', data);
-                    return `
-                        <a href="${editUrl}" class="dropdown-item edit-service" data-id="${data}" data-url="${editUrl}"  >
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                        <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-Update="${row.status}">
-                            <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'Disable' : 'Enable'}
-                        </a>
-                    `;
-                }
+            columns: [
+        { data: 'name' },
+        { data: 'title' },
+        { data: 'price' },
+        { data: 'status' },
+        {
+            data: 'id',
+            render: function(data, type, row) {
+                var editUrl = `{{ route("service.edit", ":id") }}`.replace(':id', data);
+                return `
+                    <a href="${editUrl}" class="dropdown-item edit-service" data-id="${data}">
+                        <i class="fa fa-pencil"></i> Edit
+                    </a>
+                    <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-status="${row.status}">
+                        <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'Disable' : 'Enable'}
+                    </a>
+                    <a href="#" class="dropdown-item delete-service text-danger" data-id="${data}">
+                        <i class="fa fa-trash"></i> Delete
+                    </a>
+                `;
             }
-        ]
+        }
+    ]
+
     });
 
     $('#data-x').on('click', '.toggle-Update', function(e) {

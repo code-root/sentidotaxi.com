@@ -5,10 +5,12 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\FormSubmission;
 use App\Models\Service;
+use App\Models\ServiceImage;
 use App\Models\ServiceOrder;
 use App\Models\site\Category;
 use App\Models\Translation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
@@ -91,10 +93,10 @@ class ServiceController extends Controller
         // رفع باقي الصور وتخزين مساراتها في جدول service_images
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $image) {
-                if ($index > 0) { // تخطي أول صورة لأنها تم تخزينها بالفعل في حقل image
+                // if ($index > 0) {
                     $path = $image->store('services', 'public');
                     $item->images()->create(['path' => $path]);
-                }
+                // }
             }
         }
 
@@ -119,7 +121,7 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         $service->update($request->only(['status', 'price', 'description', 'category_id']));
 
-        foreach ($request->except(['_token', '_method']) as $key => $translations) {
+        foreach ($request->except(['_token', '_method', 'images']) as $key => $translations) {
             if (is_array($translations)) {
                 foreach ($translations as $languageId => $value) {
                     Translation::updateOrCreate(
@@ -135,16 +137,41 @@ class ServiceController extends Controller
             }
         }
 
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('services', 'public');
+
+                ServiceImage::create([
+                    'service_id' => $service->id,
+                    'path' => $path,
+                ]);
+            }
+        }
+
         return redirect()->route('service.index')->with('success', 'Service updated successfully');
     }
 
+
     public function destroy(Request $request)
     {
-        $service = Service::findOrFail($request->id);
-        $service->delete();
-
-        return response()->json(['success' => 'Service deleted successfully.']);
+        try {
+            $service = Service::findOrFail($request->id);
+            // Delete all related images
+            $service->images()->delete();
+            // Delete all related translations
+            $service->translations()->delete();
+            // Delete all related orders
+            $service->orders()->delete();
+            // Delete all related views
+            $service->views()->delete();
+            // Finally, delete the service itself
+            $service->delete();
+            return response()->json(['success' => 'Service and all related data deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete service.'], 500);
+        }
     }
+
 
     public function toggleStatus(Request $request)
     {
@@ -160,5 +187,16 @@ class ServiceController extends Controller
         return view('dashboard.orders.index', compact('data'));
     }
 
+        // في الكونترولر
+    public function deleteImage(Request $request)
+    {
+        $image = ServiceImage::find($request->id);
+        if ($image) {
+            Storage::delete($image->path);
+            $image->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    }
 
 }

@@ -1,68 +1,63 @@
 @if(count($testimonials) > 0)
-<div class="testimonial-area-10 gap-top-equal photography-testimonial amazing-animated-shape">
-    <div class="container amazing-animated-shape">
-        <div class="testimonial-heading-area">
-            <div class="section-title section-center" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
-                <span class="pre-title">{{ __('messages.testimonials') }}</span>
-                <h2 class="title">{!! __('messages.what_our_clients_say') !!}</h2>
-                <span class="shape-line"><i class="icon-19"></i></span>
+<div class="testimonial-area-4">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <div class="testimonial-heading-area">
+                    <div class="section-title section-left" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                        <span class="pre-title pre-textsecondary">Testimonials</span>
+                        <h2 class="title">{!! __('messages.what_our_clients_say') !!}</h2>
+                        <span class="shape-line"><i class="icon-19"></i></span>
+                        <p>{{ __('messages.testimonials') }}</p>
+                    </div>
+                </div>
+                <div class="swiper-navigation">
+                    <div class="swiper-btn-nxt">
+                        <i class="icon-west"></i>
+                    </div>
+                    <div class="swiper-btn-prv">
+                        <i class="icon-east"></i>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="photography-testimonial-activator swiper">
-            <div class="swiper-wrapper">
-                @foreach($testimonials as $testimonial)
-                    <div class="swiper-slide">
-                        <div class="testimonial-grid">
-                            <div class="content">
-                                <div class="quote-icon">
-                                    <img src="https://edublink.html.rtl.devsblink.com/assets/images/svg-icons/quote.svg" alt="quote svg">
+            <div class="col-lg-7">
+                <div class="testimonial-activation-3 swiper">
+                    <div class="swiper-wrapper">
+                        @foreach($testimonials as $testimonial)
+                        <div class="swiper-slide">
+                            <div class="testimonial-grid testimonial-style-3">
+                                <div class="thumbnail">
+                                    <img src="https://edublink.html.rtl.devsblink.com/assets/images/svg-icons/quote.svg" alt="Testimonial">
                                 </div>
-                                <p>{{ $testimonial->testimonial }}</p>
-                                <h5 class="title">{{ $testimonial->name }}</h5>
-                                <span class="subtitle">{{ $testimonial->position }}</span>
+                                <div class="content">
+                                    <p>{{ $testimonial->testimonial }}</p>
+                                    <div class="rating-icon">
+                                        <i class="icon-23"></i>
+                                        <i class="icon-23"></i>
+                                        <i class="icon-23"></i>
+                                        <i class="icon-23"></i>
+                                        <i class="icon-23"></i>
+                                    </div>
+                                    <h5 class="title">{{ $testimonial->name }}</h5>
+                                    <span class="subtitle">{{ $testimonial->position }}</span>
+                                </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
-        <div class="swiper photography-testimonial-thumbs photo-testimonial-thumb-wrap">
-            <div class="swiper-wrapper">
-                @foreach($testimonials as $testimonial)
-                    <div class="nav-thumb swiper-slide">
-                        <div class="clint-thumb">
-                            <img src="/storage/app/public/{{  $testimonial->image }}" width="104" height="104" alt="Testimonial" loading="">
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="swiper-slide-controls slide-prev">
-            <i class="icon-west"></i>
-        </div>
-        <div class="swiper-slide-controls slide-next">
-            <i class="icon-east"></i>
-        </div>
-
-        <ul class="shape-group">
-            <li class="shape-1 scene" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
-                <img data-depth="-1.5" src="/assets/site/images/about/shape-13.png" alt="Shape">
-            </li>
-            <li class="shape-2 sal-animate" data-sal-delay="200" data-sal="fade" data-sal-duration="1000">
-                <img src="/assets/site/images/others/Photo-shape-6.png" alt="Shape">
-            </li>
-            <li class="shape-3 sal-animate" data-sal-delay="200" data-sal="fade" data-sal-duration="1000">
-                <img class="d-block-shape-light" src="/assets/site/images/others/map-shape-3.png" alt="Shape">
-                <img class="d-none-shape-dark" src="/assets/site/images/others/dark-map-2-shape-3.png" alt="Shape">
-            </li>
-            <li class="shape-4" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
-                <img class="rotateit" src="/assets/site/images/about/shape-37.png" alt="Shape">
-            </li>
-            <li class="shape-5">
-                <span></span>
-            </li>
-        </ul>
     </div>
+    <ul class="shape-group">
+        <li class="shape-1 scene">
+            <img data-depth="2" src="/assets/site/images/others/shape-18.png" alt="Shape">
+        </li>
+        <li class="shape-2">
+            <img src="/assets/site/images/others/map-shape-3.png" alt="Shape">
+        </li>
+    </ul>
 </div>
+
 <!-- End Testimonial Area  -->
 @endif
